@@ -17,9 +17,9 @@
                             {{ feature.name }}
                         </v-card-title>
 
-                        <v-card-subtitle>
+                        <v-card-text>
                             {{ feature.description }}
-                        </v-card-subtitle>
+                        </v-card-text>
                     </v-card>
                 </v-col>
             </v-row>
@@ -32,9 +32,9 @@ export default {
     name: "FeaturesPresentation",
     data: () => ({
         features: [
-            { id: 1, name: "Feature Name", description: "Odio pellentesque diam volutpat commodo sed egestas. Turpis nunc eget lorem dolor sed.", icon: "mdi-domain" },
-            { id: 2, name: "Feature Name", description: "Odio pellentesque diam volutpat commodo sed egestas. Turpis nunc eget lorem dolor sed.", icon: "mdi-domain" },
-            { id: 3, name: "Feature Name", description: "Odio pellentesque diam volutpat commodo sed egestas. Turpis nunc eget lorem dolor sed.", icon: "mdi-domain" },
+            { id: 1, name: "Popisivanje potrošnje", description: "Odio pellentesque diam volutpat commodo sed egestas. Turpis nunc eget lorem dolor sed.", icon: "mdi-gauge" },
+            { id: 2, name: "Evidencija gubitaka", description: "Odio pellentesque diam volutpat commodo sed egestas. Turpis nunc eget lorem dolor sed.", icon: "mdi-water-alert" },
+            { id: 3, name: "Plaćanje računa", description: "Odio pellentesque diam volutpat commodo sed egestas. Turpis nunc eget lorem dolor sed.", icon: "mdi-ticket-outline" },
         ]
     })
 }

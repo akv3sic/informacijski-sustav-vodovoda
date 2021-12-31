@@ -10,6 +10,11 @@ const routes = [
     name: 'Home',
     component: Home
   },
+  {
+    path: '/prijava',
+    name: 'login',
+    component: () => import("@/views/auth/Login")
+  },
     // 404 redirect
     {
       path: '/:catchAll(.*)',

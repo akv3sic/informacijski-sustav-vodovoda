@@ -12,7 +12,10 @@
 
       <v-spacer></v-spacer>
 
-      <v-btn outlined>
+      <v-btn 
+        outlined
+        @click="$router.push({ path: '/prijava' })"
+      >
         PRIJAVA
       </v-btn>
 

@@ -9,7 +9,13 @@ const routes = [
     path: '/',
     name: 'Home',
     component: Home
-  }
+  },
+    // 404 redirect
+    {
+      path: '/:catchAll(.*)',
+      name: 'NotFound',
+      component: () => import("@/views/NotFound")
+    }
 ]
 
 const router = new VueRouter({

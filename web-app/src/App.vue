@@ -5,7 +5,7 @@
   <v-main>
 
     <!-- Provides the application the proper gutter -->
-    <v-container fluid class="pa-0"> 
+    <v-container fluid class="pa-0" :class="{'fill-height':$route.name == 'NotFound'}"> 
 
       <!-- vue-router -->
       <router-view></router-view>

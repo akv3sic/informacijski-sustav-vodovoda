@@ -42,14 +42,16 @@
             </v-row>
 
         </v-container>
+        <Footer />
     </div>
 </template>
 
 <script>
 import Header from '../../components/layout/TheHeader.vue'
+import Footer from '../../components/layout/TheFooter.vue'
 export default {
     name: "Post",
-    components: { Header },
+    components: { Header, Footer },
     data: () => ({
       breadcrumbsItems: [
         {

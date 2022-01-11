@@ -6,18 +6,33 @@
         :class="{'px-16':$vuetify.breakpoint.mdAndUp}"
       >
           <v-spacer class="hidden-md-and-up"></v-spacer>
+
           <v-toolbar-title>
               <!--<v-img src="@/assets/img/logo.png" max-width="50px" />-->
+            <a href="/" class="rm-text-decoration white--text">
               Vodovod X
+            </a>
           </v-toolbar-title>
 
           <v-spacer></v-spacer>
 
           <!-- Hidden on mobile -->
+
+          <v-toolbar-items class="hidden-sm-and-down">
+              <v-list-item
+                v-for="(item, index) in navigationItems"
+                :key="index"
+                :to="item.to"
+                class="mx-2"
+                >
+                <v-list-item-title class="text-body font-weight-medium white-title">{{ item.title }}</v-list-item-title>
+              </v-list-item>
+          </v-toolbar-items>
+
           <v-btn 
             outlined
             @click="$router.push({ path: '/prijava' })"
-            class="hidden-sm-and-down"
+            class="hidden-sm-and-down ml-2"
           >
             PRIJAVA
           </v-btn>
@@ -56,6 +71,17 @@
                   <img class="mx-auto" :src="require('@/assets/img/logo.png')" height="30"/>
             </v-subheader>
             <v-list-item-group>
+                 <v-list-item
+                  v-for="(item, index) in navigationItems"
+                  :key="index"
+                  :to="item.to"
+                  >
+                  <v-list-item-icon>
+                      <v-icon> {{ item.icon }} </v-icon>
+                  </v-list-item-icon>
+                  <v-list-item-title>{{ item.title }}</v-list-item-title>
+                </v-list-item>
+
                 <v-list-item to="/prijava">
                   <v-list-item-icon>
                       <v-icon>mdi-login</v-icon>
@@ -73,7 +99,22 @@
 export default {
     name: "Header",
     data: () => ({
-      drawer: false
+      drawer: false,
+       navigationItems: [
+                {title: 'Naslovnica', to:'/', icon: 'mdi-home-outline'},
+                {title: 'Novosti', to:'/novosti', icon: 'mdi-newspaper-variant-outline'},
+                {title: 'Česta pitanja', to:'/cesta-pitanja', icon: 'mdi-help-circle-outline'},
+                {title: 'Prijava kvara', to:'/prijava-kvara', icon: 'mdi-alert'},
+      ],
     })
 }
 </script>
+
+<style>
+.rm-text-decoration {
+  text-decoration: none;
+}
+.white-title {
+  color: white !important;
+}
+</style>

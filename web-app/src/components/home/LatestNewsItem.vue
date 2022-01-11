@@ -14,7 +14,10 @@
             </v-card-text>
             <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn text>
+                <v-btn
+                    text
+                    :to="postLink"
+                >
                     Više
                 </v-btn>
             </v-card-actions>
@@ -28,6 +31,17 @@ export default {
     name: "LatestNewsItem",
     props: {
         post: {type: Object, required: true}
+    },
+        computed: {
+        postLink() {
+            return {
+                name: "post",
+                params: {
+                    id: this.post.id,
+                    slug: "i-am-post-slug"
+                    }
+            }
+        }
     }
 }
 </script>

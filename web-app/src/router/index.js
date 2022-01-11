@@ -28,6 +28,13 @@ const routes = [
       ]
     }
   },
+  //pojedinačna novost (objava)
+  {
+    path: '/novosti/:id/:slug',
+    name: "post",
+    component: () => import("@/views/posts/Post"),
+    props: true
+  },
   // auth
   {
     path: '/registracija',

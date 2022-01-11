@@ -28,6 +28,12 @@ const routes = [
       ]
     }
   },
+    // FAQs
+    {
+      path: '/cesto-postavljana-pitanja',
+      name: "FAQs",
+      component: () => import("@/views/FAQs")
+    },
   //pojedinačna novost (objava)
   {
     path: '/novosti/:id/:slug',

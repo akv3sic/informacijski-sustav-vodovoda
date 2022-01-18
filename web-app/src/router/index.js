@@ -57,7 +57,22 @@ const routes = [
     name: 'reset-password',
     component: () => import("@/views/auth/ResetPassword")
   },
-  // 404 redirect
+
+   /***********************************/
+  /********* administracija ***********/
+  /************************************/
+  {
+    path: '/admin',
+    component: () => import("@/views/admin/AdminHome"),
+    meta: {  },
+    children: [
+
+    ]
+  },
+  /************************************/
+  /************************************/
+
+  // 404 redirect - ovo TREBA stojati na kraju
   {
     path: '/:catchAll(.*)',
     name: 'NotFound',
@@ -65,7 +80,7 @@ const routes = [
     meta: {
       title: 'Stranica nije pronađena',
     }
-  }
+  },
 ]
 
 const router = new VueRouter({

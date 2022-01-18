@@ -103,7 +103,7 @@ export default {
        navigationItems: [
                 {title: 'Naslovnica', to:'/', icon: 'mdi-home-outline'},
                 {title: 'Novosti', to:'/novosti', icon: 'mdi-newspaper-variant-outline'},
-                {title: 'Česta pitanja', to:'/cesta-pitanja', icon: 'mdi-help-circle-outline'},
+                {title: 'Česta pitanja', to:'/cesto-postavljana-pitanja', icon: 'mdi-help-circle-outline'},
                 {title: 'Prijava kvara', to:'/prijava-kvara', icon: 'mdi-alert'},
       ],
     })

@@ -25,7 +25,8 @@ class MyUserManager(BaseUserManager):
         user = self.create_user(
             email= self.normalize_email(email),
             username=username,
-            userlastname=userlastname,
+            userlastname=userlastname, 
+            password=password,
 
 
         )   
@@ -47,10 +48,10 @@ class User(AbstractBaseUser):
     is_staff=models.BooleanField(default=False)
     is_superuser= models.BooleanField(default=False)
     userlastname = models.CharField(max_length=60)
-    telefon = models.CharField(max_length=22)
-    kucni_broj=models.PositiveIntegerField()
-    ulica=models.ForeignKey(Ulica, on_delete=CASCADE)
-    rola=models.ForeignKey(Rola,  on_delete=CASCADE)
+    telefon = models.CharField(max_length=22, null=True, default=None)
+    kucni_broj=models.PositiveIntegerField(null=True, default=None)
+    ulica=models.ForeignKey(Ulica, on_delete=CASCADE, null=True, default=None)
+    rola=models.ForeignKey(Rola,  on_delete=CASCADE, null=True, default=None)
     
 
     USERNAME_FIELD = 'email'

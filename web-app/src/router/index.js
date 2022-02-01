@@ -96,6 +96,16 @@ const routes = [
         name: 'user-consuption-overview',
         component: () => import("@/views/userDashboard/ConsumptionOverview"),
       },
+      {
+        path: 'prijava-kvara',
+        name: 'user-malfunction-report',
+        component: () => import("@/views/userDashboard/MalfunctionReport"),
+      },
+      {
+        path: 'postavke',
+        name: 'user-settings',
+        component: () => import("@/views/userDashboard/Settings"),
+      },
     ]
   },
   /************************************/

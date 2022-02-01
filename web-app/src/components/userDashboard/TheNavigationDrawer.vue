@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-navigation-drawer 
-            color="light-blue lighten-5"
+            color="secondary"
             v-model="drawer"
             app
         >

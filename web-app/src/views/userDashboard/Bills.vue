@@ -3,7 +3,7 @@
         <h2 class="mb-2">Računi</h2>
         <v-row class="mb-5">
             <v-col>
-                <span class="secondary--text">Pregledajte stare račune ili platite račun.</span>
+                <span class="accent--text">Pregledajte stare račune ili platite račun.</span>
             </v-col>
             <v-col>
                 <v-btn class="primary" to="pregled-potrosnje">Pregled potrošnje</v-btn>

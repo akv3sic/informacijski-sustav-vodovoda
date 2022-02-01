@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-app-bar
-            color="blue darken-2"
+            color="primary"
             dark
             app
             flat

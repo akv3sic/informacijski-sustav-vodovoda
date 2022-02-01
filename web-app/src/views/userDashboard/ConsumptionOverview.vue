@@ -3,7 +3,7 @@
         <h2 class="mb-2">Pregled potrošnje</h2>
         <v-row class="mb-5">
             <v-col>
-                <span>Stanje brojila (pri zadnjem očitavanju): 107</span>
+                <span class="accent--text">Stanje brojila (pri zadnjem očitavanju): 107</span>
             </v-col>
         </v-row>
         

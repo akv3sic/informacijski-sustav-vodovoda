@@ -47,7 +47,7 @@ export default {
     name: 'UserNavbar',
     data: () => ({
        accountMenuItems: [
-            { title: 'Novi priključak', action: 'logOut'},  
+            { title: 'Novi priključak', action: 'createNewContract'},  
             { title: 'Odjava', action: 'logOut'},  
             ],
     }),
@@ -55,13 +55,17 @@ export default {
       ...mapState('userDashboard', ['drawer'])
     },
      methods: {
+         /* meni koji se otvara klikom na ikonicu korisika */
          handleAccountMenuItemClick(action) {
              switch(action) {
-             case 'logOut':
-                this.$store
-                    .dispatch('auth/logOut', { root: true })
-                 this.$router.push({path: '/'})
-                break;
+                case 'logOut':
+                    this.$store
+                        .dispatch('auth/logOut', { root: true })
+                    this.$router.push({path: '/'})
+                    break;
+                case 'createNewContract':
+                    this.$router.push({path: 'novi-prikljucak'})
+                    break;
                 }
              },
      ...mapActions('userDashboard', ['setDrawer'])

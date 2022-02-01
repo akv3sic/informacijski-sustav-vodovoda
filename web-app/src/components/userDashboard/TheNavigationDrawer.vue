@@ -94,7 +94,7 @@ export default {
         }
       ],
       prikljucci: [
-        { id: 541, adresa: "Vojnica bb" },
+        { id: 541, adresa: "Matice hrvatske bb" },
         { id: 549, adresa: "Street 22" }
       ]
     }),

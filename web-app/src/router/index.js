@@ -106,6 +106,11 @@ const routes = [
         name: 'user-settings',
         component: () => import("@/views/userDashboard/Settings"),
       },
+      {
+        path: 'novi-prikljucak',
+        name: 'user-new-contract',
+        component: () => import("@/views/userDashboard/NewContract"),
+      },
     ]
   },
   /************************************/

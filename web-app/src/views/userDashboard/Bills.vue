@@ -17,7 +17,7 @@
                  v-model="filters.selectedStatus"
                 :items="filters.statuses"
                 filled
-                label="Status vožnje"
+                label="Status računa"
                 ></v-select> 
             </span>
         </div>

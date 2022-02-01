@@ -58,7 +58,7 @@ const routes = [
     component: () => import("@/views/auth/ResetPassword")
   },
 
-   /***********************************/
+  /************************************/
   /********* administracija ***********/
   /************************************/
   {
@@ -67,6 +67,50 @@ const routes = [
     meta: {  },
     children: [
 
+    ]
+  },
+  /************************************/
+  /************************************/
+
+  /**************************************/
+  /********* korisnički račun ***********/
+  /**************************************/
+  {
+    path: '/moj-racun',
+    redirect: '/moj-racun/osobni-podatci',
+    component: () => import("@/views/userDashboard/Home"),
+    meta: {  },
+    children: [
+      {
+        path: 'osobni-podatci',
+        name: 'account-details',
+        component: () => import("@/views/userDashboard/AccountDetails"),
+      },
+      {
+        path: 'racuni',
+        name: 'user-bills',
+        component: () => import("@/views/userDashboard/Bills"),
+      },
+      {
+        path: 'pregled-potrosnje',
+        name: 'user-consuption-overview',
+        component: () => import("@/views/userDashboard/ConsumptionOverview"),
+      },
+      {
+        path: 'prijava-kvara',
+        name: 'user-malfunction-report',
+        component: () => import("@/views/userDashboard/MalfunctionReport"),
+      },
+      {
+        path: 'postavke',
+        name: 'user-settings',
+        component: () => import("@/views/userDashboard/Settings"),
+      },
+      {
+        path: 'novi-prikljucak',
+        name: 'user-new-contract',
+        component: () => import("@/views/userDashboard/NewContract"),
+      },
     ]
   },
   /************************************/

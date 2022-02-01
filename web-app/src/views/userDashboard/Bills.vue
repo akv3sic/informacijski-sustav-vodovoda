@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-16 max-70">
+    <v-container class="pa-16 max-85">
         <h2 class="mb-2">Računi</h2>
         <v-row class="mb-5">
             <v-col>

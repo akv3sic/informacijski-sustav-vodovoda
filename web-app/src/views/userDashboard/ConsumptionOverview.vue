@@ -1,12 +1,17 @@
 <template>
-    <v-container class="pa-16 max-70">
+    <v-container class="pa-16 max-85">
         <h2 class="mb-2">Pregled potrošnje</h2>
         <v-row class="mb-5">
             <v-col>
-                <span>Zadnje očitano stanje brojila: 107</span>
+                <span>Stanje brojila (pri zadnjem očitavanju): 107</span>
             </v-col>
         </v-row>
         
+        <!--  grafički prikaz potrošnje -->
+        <GraphicalConsuptionOverview 
+            :labels="graphLabels"
+            :values="graphValues"
+        />
 
          <!-- kartice s potrošnjom za pojedini mjesec -->
         <v-card 
@@ -47,15 +52,35 @@
 </template>
 
 <script>
+import GraphicalConsuptionOverview from '@/components/userDashboard/GraphicalConsOverview.vue'
+
 export default {
     name: "UserConsuptionOverview",
+    components: { GraphicalConsuptionOverview },
     data: () => ({
          potrosnjaPoMjesecima: [
             { id: 732, mjesec: "01", godina: "2020", datumOcitavanja: "23. 1. 2022.", prethodnoStanje: "90", novoStanje: "107", status: "decreasing" },
             { id: 738, mjesec: "12", godina: "2020", datumOcitavanja: "23. 1. 2022.", prethodnoStanje: "90", novoStanje: "107", status: "increasing" },
             { id: 739, mjesec: "11", godina: "2020", datumOcitavanja: "23. 1. 2022.", prethodnoStanje: "90", novoStanje: "107", status: "increasing" },
             { id: 790, mjesec: "10", godina: "2020", datumOcitavanja: "23. 1. 2022.", prethodnoStanje: "90", novoStanje: "107", status: "increasing" }
-        ]
+        ],
+        graphLabels: [
+        '2.',
+        '3.',
+        '4.',
+        '5.',
+        '6.',
+        '7.',
+        '8.',
+        '9.',
+        '10.',
+        '11.',
+        '12.',
+        '1.',
+      ],
+      graphValues: [
+        0, 0, 0, 0, 0, 0, 0, 0, 15, 20, 25, 17
+      ],
     }),
     methods: {
 

@@ -1,4 +1,8 @@
 import json
+from urllib import response
+from ulice.models import Ulica
+from ulice.serializers import UlicaSerializer
+from rest_framework.views import APIView
 from django.contrib.auth import login, logout
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
@@ -7,7 +11,7 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.exceptions import ValidationError
 from .models import User
-from .serializers import RegistrationSerializer
+from .serializers import RegistrationSerializer, UserDataSerializer
 
 
 @api_view(["POST"])
@@ -75,3 +79,28 @@ def userLogout(request):
     logout(request)
 
     return Response('Uspješna odjava')
+
+class UserUpdate(APIView):
+    permission_classes=(IsAuthenticated,)
+    
+
+    def get(self, request):
+        user = request.user
+        serializer= UserDataSerializer(user)
+        serializer2=UlicaSerializer(Ulica.objects.all(), many= True)
+        data={}
+        data['korisnik']=serializer.data
+        data['ulice']=serializer2.data
+        return Response(data=data, status=status.HTTP_200_OK)
+
+    def put(self, request):
+        user = request.user
+        serializer = UserDataSerializer(user, data= request.data)
+        serializer2=UlicaSerializer(Ulica.objects.all(), many= True)
+        data={}
+        if serializer.is_valid():
+            serializer.save()
+            data['korisnik']=serializer.data
+            data['ulice']=serializer2.data
+            return Response(data=data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -10,7 +10,8 @@ const vuetify = new Vuetify({
     themes: {
       light: {
             primary: "#1976D2",
-            secondary: '#E1F5FE'
+            secondary: '#E1F5FE',
+            accent: "#d27519"
       },
     },
   },

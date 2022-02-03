@@ -1,16 +1,15 @@
 <template>
     <v-footer
-        color="blue darken-2"
-        dark
+        color="#fff"
         class="pt-7 pb-3"
     >
         <v-row class="px-16">
             <v-col>
                 <h3>Pratite nas</h3>
-                <a href="https://facebook.com" target="_blank">
+                <a href="https://facebook.com" target="_blank" class="rm-text-decoration">
                     <v-icon class="ma-2" x-large>mdi-facebook</v-icon>
                 </a>
-                <a href="https://linkedin.com" target="_blank">
+                <a href="https://linkedin.com" target="_blank" class="rm-text-decoration">
                     <v-icon class="ma-2" x-large>mdi-linkedin</v-icon>
                 </a>
             </v-col>
@@ -50,11 +49,19 @@
                     {{ item.name }}
                 </v-list-item>
             </v-col>
+
             <v-col 
                 cols="12"
-                class="pt-7 text-center"
+                class="pt-7 pb-1 text-center"
             >
-                &copy; {{ new Date().getFullYear() }} — <strong>Vodovod X</strong>
+                &copy; {{ new Date().getFullYear() }} — <strong class="primary--text">Vodovod X</strong>
+            </v-col>
+
+            <v-col 
+                cols="12"
+                class="pt-1 text-center"
+            >
+                Zaštita privatnosti | Uvjeti korištenja
             </v-col>
         </v-row>
     </v-footer>
@@ -65,14 +72,14 @@ export default {
     name: "Footer",
     data: () => ({
         korisniciNavItems: [
-            { id: 1, name: "Često postavljana pitanja", link: "" },
+            { id: 1, name: "Često postavljana pitanja", link: "/cesto-postavljana-pitanja" },
             { id: 2, name: "Moj račun", link: "" },
-            { id: 3, name: "Prijava kvara", link: "" }
+            { id: 3, name: "Sit dolor", link: "" }
         ],
         tvrtkaNavItems: [
-            { id: 1, name: "O nama", link: "" },
-            { id: 2, name: "Javne nabavke", link: "" },
-            { id: 3, name: "Lorem ipsum", link: "" }
+            { id: 1, name: "Više o nama", link: "" },
+            { id: 2, name: "Investitiori", link: "" },
+            { id: 3, name: "Blog", link: "" }
         ],
         viseInformacijaNavItems: [
             { id: 1, name: "Lorem ipsum", link: "" },
@@ -89,7 +96,7 @@ ul {
 }
 .nav-item {
     padding-left: 0 !important;
-    color: white !important;
+    color: grey !important;
 }
 .nav-item:hover {
     background-color: transparent !important;

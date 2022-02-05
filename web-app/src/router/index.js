@@ -77,7 +77,24 @@ const routes = [
   },
   /************************************/
   /************************************/
-
+  /************************************/
+  /********* popisivanje ***********/
+  /************************************/
+  {
+    path: '/popisivaci',
+    redirect: '/popisivaci/pregled-prikljucaka',
+    component: () => import("@/views/staff/Home"),
+    meta: {  },
+    children: [
+      {
+        path: 'pregled-prikljucaka',
+        name: 'contracts-staff',
+        component: () => import("@/views/staff/ContractsOverview"),
+      },
+    ]
+  },
+  /************************************/
+  /************************************/
   /**************************************/
   /********* korisnički račun ***********/
   /**************************************/

@@ -25,7 +25,7 @@
                                     </v-col>
                                     <!--Register btn -->
                                     <v-col cols="10" class="mx-auto">
-                                        <v-btn block class="primary" :disabled="!valid">Izradi račun</v-btn>
+                                        <v-btn block class="primary" :disabled="!valid" @click="register">Izradi račun</v-btn>
                                     </v-col> 
                                 </v-row>
                             </v-form>
@@ -59,7 +59,26 @@ export default {
         required: value => !!value || "Obavezno polje.",
         },
         showPassword: false
-    })
+    }),
+    methods: {
+        // metoda za registraciju
+        register() {
+        if (this.$refs.registerForm.validate()) {
+            const USER = {
+                email: this.email,
+                username: this.ime,
+                userlastname: this.prezime,
+                password: this.password,
+            }
+            console.log(USER)
+            this.$store
+                .dispatch('auth/register', USER, { root: true })
+                .catch( err => {
+                    console.log("Greska pri registraciji: " + err)
+                })
+            }
+        },
+    }
 }
 </script>
 

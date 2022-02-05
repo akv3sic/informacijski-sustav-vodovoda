@@ -51,7 +51,14 @@ export default {
             mobitel: "+387 77 123 456",
         }
     }),
+    created() {
+        this.fetchUserDetails();
+    },
     methods: {
+        fetchUserDetails() {
+            this.$store
+                .dispatch('userAccountDetails/fetchUserDetails', null, {root: true})
+        },
         updateUserDetails(){
             console.log(this.user)
         }

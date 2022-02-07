@@ -89,13 +89,13 @@ export default {
     name: 'Navbar',
     data: () => ({
        accountMenuItems: [
-            { title: 'Moj račun', action: '', to: 'moj-racun'},  
+            { title: 'Moj račun', action: '', to: 'osobni-podatci'},  
             { title: 'Prijava kvara', action: '', to: 'prijava-kvara'},  
             { title: 'Odjava', action: 'logOut', to: '#'},  
         ],
         drawer: false,
         navigationItems: [
-            {title: 'Moj račun', to:'moj-racun', icon: 'mdi-account'},
+            {title: 'Moj račun', to:'osobni-podatci', icon: 'mdi-account'},
             {title: 'Prijava kvara', to:'/prijava-kvara', icon: 'mdi-alert'},
       ],
     }),

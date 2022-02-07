@@ -13,7 +13,7 @@ const state = () => ({
       },
     isLoading(state) {
         return state.isLoading;
-      }
+    }
  }
  
  // actions

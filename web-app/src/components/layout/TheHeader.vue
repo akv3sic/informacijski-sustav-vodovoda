@@ -36,6 +36,7 @@
           <template v-slot:activator="{ on, attrs }">
             <!-- avatar -->
             <v-avatar
+              @click="fetchUserData"
               color="accent"
               size="40"
               v-bind="attrs"
@@ -59,7 +60,8 @@
                 </v-list-item-avatar>
 
                 <v-list-item-content>
-                  <v-list-item-title>John Leider</v-list-item-title>
+                  <v-list-item-title>{{ user.username }} {{ user.userlastname }}</v-list-item-title>
+                  <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
                 </v-list-item-content>
               </v-list-item>
             </v-list>
@@ -173,6 +175,7 @@ export default {
 
     computed: {
       ...mapGetters('auth', ['isLoggedIn', 'avatarText']),
+      ...mapGetters('userAccountDetails', ['isLoading', 'user'])
     },
 
     methods: {
@@ -180,6 +183,10 @@ export default {
           this.$store
           .dispatch('auth/logOut', { root: true })
       },
+      fetchUserData() {
+            this.$store
+                .dispatch('userAccountDetails/fetchUserDetails', null, {root: true})
+        },
     }
 }
 </script>

@@ -31,11 +31,11 @@
         >
             <v-row>
                 <v-col>
-                    <v-card-title> Račun za {{ bill.mjesec }}/{{ bill.godina }}  </v-card-title>         
+                    <v-card-title> Račun za {{ bill.mjesec }}  </v-card-title>         
                     <v-card-text>
-                        Datum dospijeća: {{ bill.dospijece }}
+                        Datum dospijeća: {{ bill.datum_dospijeca }}
                         <br>
-                        Datum plaćanja: {{ bill.placanje }}
+                        Datum plaćanja: {{ bill.datum_placanja }}
                     </v-card-text>
                 </v-col>
 
@@ -52,7 +52,7 @@
                     <v-card-text>
                         Račun br.: {{ bill.id }}
                         <br>
-                        <v-btn class="mt-3 teal lighten-4" :disabled="bill.status == 'Plaćeno' || bill.status == 'Zakašnjelo'"> Idi na plaćanje </v-btn>
+                        <v-btn class="mt-3 teal lighten-4" :disabled="bill.placeno == true"> Idi na plaćanje </v-btn>
                     </v-card-text>
                 </v-col>
 
@@ -61,13 +61,12 @@
                     <v-chip
                         :class="{
                                     'rotate90': $vuetify.breakpoint.lgAndUp,
-                                    'green': bill.status == 'Plaćeno',
-                                    'yellow': bill.status == 'Pristiglo',
-                                    'red lighten-3': bill.status == 'Zakašnjelo'
+                                    'green': bill.placeno == true,
+                                    'yellow lighten-3': bill.placeno == false,
                                 }"
                         class="status-chip mx-3"
                     >
-                        {{ bill.status }}
+                        {{ bill.placeno ? 'Plaćeno' : 'Neplaćeno' }} 
                     </v-chip> 
                     </v-card-actions>
                 </v-col>
@@ -81,31 +80,56 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
     name: "MyBills",
     data: () => ({
-        bills: [
-            { id: 732, mjesec: "01", godina: "2020", dospijece: "20. 1. 2022.", placanje: "23. 1. 2022.", ukupno: "18,16", status: "Pristiglo" },
+        billsMockUp: [
+            { id: 732, mjesec: "01", godina: "2020", dospijece: "20. 1. 2022.", placanje: "23. 1. 2022.", ukupno: "18,16", status: "Neplaćeno" },
             { id: 738, mjesec: "12", godina: "2020", dospijece: "20. 1. 2022.", placanje: "23. 1. 2022.", ukupno: "42,90", status: "Plaćeno" },
-            { id: 835, mjesec: "11", godina: "2020", dospijece: "20. 1. 2022.", placanje: "23. 1. 2022.", ukupno: "19,16", status: "Zakašnjelo" },
+            { id: 835, mjesec: "11", godina: "2020", dospijece: "20. 1. 2022.", placanje: "23. 1. 2022.", ukupno: "19,16", status: "Neplaćeno" },
             { id: 890, mjesec: "10", godina: "2020", dospijece: "20. 1. 2022.", placanje: "23. 1. 2022.", ukupno: "18,16", status: "Plaćeno" }
         ],
         filters: {
             selectedStatus: "Svi",
-            statuses: ['Svi', 'Pristiglo', 'Plaćeno', 'Zakašnjelo'],
-            withRequestsOnly: false    
+            statuses: ['Svi', 'Plaćeno', 'Neplaćeno'],
         }
     }),
+    mounted() {
+        this.fetchBills()
+    },
     methods: {
-      
-    } ,
+      fetchBills() {
+          this.$store
+              .dispatch('userBills/fetchBills', this.selectedContract, {root: true})
+      },
+    },
     computed: {
         // by status
         filteredBills: function() {
-            return this.bills.filter((bill) => {
-                return bill.status.match(this.filters.selectedStatus) || this.filters.selectedStatus == "Svi"
-            });
+            if (this.filters.selectedStatus == 'Plaćeno') {
+                return this.bills.filter((bill) => {
+                    return bill.placeno == true
+                }); 
+            }
+            else if(this.filters.selectedStatus == 'Neplaćeno') {
+                return this.bills.filter((bill) => {
+                    return bill.placeno == false
+                }); 
+            }
+            else {
+                return this.bills
+            } 
         },
+        ...mapGetters('userDashboard', ['selectedContract']),
+        ...mapGetters('userBills', ['bills']),
+    },
+    watch: {
+        selectedContract(newValue){
+            console.log("odabrani prikljucak promijenjen " + newValue)
+            this.fetchBills()
+        }
     }
 }
 </script>

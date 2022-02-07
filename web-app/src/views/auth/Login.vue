@@ -19,7 +19,14 @@
                                     </v-col>
                                     <!--Login btn -->
                                     <v-col cols="10" class="mx-auto">
-                                        <v-btn block class="primary" :disabled="!valid">Prijava</v-btn>
+                                        <v-btn 
+                                            block 
+                                            class="primary" 
+                                            :disabled="!valid" 
+                                            @click="login"
+                                        >
+                                        Prijava
+                                        </v-btn>
                                     </v-col> 
                                 </v-row>
                             </v-form>
@@ -52,7 +59,25 @@ export default {
         required: value => !!value || "Obavezno polje.",
         },
         showPassword: false
-    })
+    }),
+    methods: {
+    // metoda za prijavu
+    login() {
+    if (this.$refs.loginForm.validate()) {
+        const USER = {
+            email: this.email,
+            password: this.password,
+        }
+        console.log(USER)
+        this.$store
+            .dispatch('auth/logIn', USER, { root: true })
+                this.$router.push("/")
+            .catch( err => {
+                console.log("Greska pri prijavi: " + err)
+                })
+            }
+        },
+    }
 }
 </script>
 

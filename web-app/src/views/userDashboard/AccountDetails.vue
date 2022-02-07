@@ -4,7 +4,7 @@
         <v-row>
             <v-col>
                 <v-text-field
-                v-model="user.ime"
+                v-model="user.username"
                     label="Ime"
                 ></v-text-field>
             </v-col>
@@ -12,7 +12,7 @@
         <v-row>
             <v-col>
                 <v-text-field
-                v-model="user.prezime"
+                v-model="user.userlastname"
                     label="Prezime"
                 ></v-text-field>
             </v-col>
@@ -29,7 +29,7 @@
         <v-row>
             <v-col>
                 <v-text-field
-                v-model="user.mobitel"
+                v-model="user.telefon"
                     label="Broj mobitela"
                 ></v-text-field>
             </v-col>
@@ -41,21 +41,32 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
+
 export default {
     name: "AccountDetails",
     data: () => ({
-        user: {
-            ime: "Ivo",
-            prezime: "Ivić",
-            email: "ivo@lorem.ipsum",
-            mobitel: "+387 77 123 456",
-        }
+
     }),
+    created() {
+        this.fetchUserDetails();
+    },
     methods: {
-        updateUserDetails(){
-            console.log(this.user)
+        fetchUserDetails() {
+            this.$store
+                .dispatch('userAccountDetails/fetchUserDetails', null, {root: true})
+        },
+        updateUserDetails() {
+            this.$store
+                .dispatch('userAccountDetails/updateUserDetails', this.user, { root: true })
+                .catch( err => {
+                    console.log(err)
+                })
         }
-    }    
+    },
+    computed: {
+        ...mapGetters('userAccountDetails', ['isLoading', 'user'])
+   } 
 }
 </script>
 

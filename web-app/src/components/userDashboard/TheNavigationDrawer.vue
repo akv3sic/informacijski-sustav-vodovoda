@@ -20,13 +20,15 @@
         </v-list-item>
 
               <v-select
-              :items="prikljucci"
+              v-model="selectedContract"
+              :items="contracts"
+              :item-text="item => item.ulica + ' ' + item.kucni_broj"
               label="Odabir priključka"
-              item-text="adresa"
               item-value="id"
               outlined
               class="px-4 pt-4"
-              ></v-select>
+              >
+              </v-select>
 
             <v-list
                 nav
@@ -62,6 +64,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 
 export default {
     name: 'UserNavigationDrawer',
@@ -93,11 +96,16 @@ export default {
           to: '/moj-racun/postavke'
         }
       ],
-      prikljucci: [
-        { id: 541, adresa: "Matice hrvatske bb" },
-        { id: 549, adresa: "Street 22" }
-      ]
     }),
+    created() {
+        this.fetchContracts()
+    },
+    methods: {
+      fetchContracts() {
+          this.$store
+              .dispatch('userDashboard/fetchContracts', null, {root: true})
+      },
+    },
     computed: {
       drawer: {
         get () {
@@ -105,6 +113,16 @@ export default {
         },
         set (val) {
           this.$store.dispatch('userDashboard/setDrawer', val)
+        },
+      },
+      ...mapGetters('userDashboard', ['contracts', 'isLoading']),
+
+      selectedContract: {
+        get () {
+          return this.$store.getters['userDashboard/selectedContract']
+        },
+        set (val) {
+          this.$store.dispatch('userDashboard/setSelectedContract', val)
         },
       },
     },

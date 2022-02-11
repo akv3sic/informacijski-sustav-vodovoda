@@ -66,13 +66,13 @@
                 <v-row class="hidden-md-and-up"> 
                     <v-col class="text-caption">Adresa</v-col>
                 </v-row>
-                {{ user.adresa }}
+                {{ user.ulica ? user.ulica.ulica : "-" }} {{ user.kucni_broj }}
             </v-col>
             <v-col cols="6" md="2" sm="6">
                 <v-row class="hidden-md-and-up"> 
                     <v-col class="text-caption">Uloga: </v-col>
                 </v-row>
-                {{ user.role }}
+                {{ user.rola.rola }}
             </v-col>
             <v-col md="1">
                 <v-icon @click="deleteuser(user.id, user.ime, user.url_slike)" class="ml-1">mdi-delete</v-icon>
@@ -94,20 +94,20 @@ import Swal from 'sweetalert2'
 export default {
     name: 'adminCustomers',
     data: () => ({
-       users: [
+       /*users: [
            { id: 1, username: "John", userlastname: "Doe", email: "test@johndoe.test", telefon: "+387 63 611 611", adresa: "Street 22", dateJoined: "10.2.2022.", role: "Administrator"},
            { id: 2, username: "John", userlastname: "Doe", email: "test@johndoe.test", telefon: "+387 63 611 611", adresa: "Street 22", dateJoined: "10.2.2022.", role: "Popisivač"},
            { id: 5, username: "John", userlastname: "Doe", email: "test@johndoe.test", telefon: "+387 63 611 611", adresa: "Street 22", dateJoined: "10.2.2022.", role: "Popisivač"},
            { id: 8, username: "John", userlastname: "Doe", email: "test@johndoe.test", telefon: "+387 63 611 611", adresa: "Street 22", dateJoined: "10.2.2022.", role: "Administrator"},
-       ]
+       ]*/
     }),
     mounted() {
-        //this.fetchusers();
+        this.fetchStaff();
     },
     methods: {
-        fetchusers() {
+        fetchStaff() {
             this.$store
-                .dispatch('users/fetchusers', {categoryId: null}, {root: true})
+                .dispatch('adminUsers/fetchUsers', 2, {root: true})
         },
         deleteuser(userId, userName, userImageUrl) {
             /* confirmation dialog */
@@ -136,7 +136,7 @@ export default {
         }
     },
     computed: {
-        //...mapGetters('users', ['users', 'isLoading'])
+        ...mapGetters('adminUsers', ['users', 'isLoading'])
     },
 }
 </script>

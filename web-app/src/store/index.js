@@ -8,11 +8,12 @@ import userBills from './modules/userBills'
 import userConsuptionOverview from './modules/userConsuptionOverview'
 import userMalfunctionReport from './modules/userMalfunctionReport'
 import adminConsuptionCategories from './modules/adminConsuptionCategories'
+import adminUsers from './modules/adminUsers'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   modules: {
-    admin, userDashboard, auth, userAccountDetails, userBills, userConsuptionOverview, adminConsuptionCategories, userMalfunctionReport
+    admin, userDashboard, auth, userAccountDetails, userBills, userConsuptionOverview, adminConsuptionCategories, userMalfunctionReport, adminUsers
   }
 })

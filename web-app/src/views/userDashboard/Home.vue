@@ -2,7 +2,7 @@
     <div>
         <Navbar />
         <NavigationDrawer />
-        <v-container fluid class="pa-0">
+        <v-container fluid class="pa-0" :class="{'px-7':$vuetify.breakpoint.mdAndUp}">
             <!-- Ovdje se injektiraju pogledi -->
           <router-view></router-view>
        </v-container>

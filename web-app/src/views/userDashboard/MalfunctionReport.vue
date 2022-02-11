@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-16">
+    <v-container>
         <h2 class="mb-2">Prijava kvara</h2>
 
         <v-row class="mb-5">

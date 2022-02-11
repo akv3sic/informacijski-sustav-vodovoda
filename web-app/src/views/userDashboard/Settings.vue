@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-16 max-85">
+    <v-container>
         <h2 class="mb-2">Postavke</h2>
 
         <v-row class="mb-5 mt-2">
@@ -24,9 +24,3 @@ export default {
     
 }
 </script>
-
-<style>
-.max-85 {
-    max-width: 85vw;
-}
-</style>

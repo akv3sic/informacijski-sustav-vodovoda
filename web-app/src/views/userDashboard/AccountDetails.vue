@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-16 max-85">
+    <v-container>
         <h2 class="mb-2">Moji podatci</h2>
         <v-row>
             <v-col>
@@ -69,9 +69,3 @@ export default {
    } 
 }
 </script>
-
-<style>
-.max-85 {
-    max-width: 85vw;
-}
-</style>

@@ -1,5 +1,5 @@
 <template>
-    <v-container class="pa-16 max-85">
+    <v-container class="">
         <h2 class="mb-2">Računi</h2>
         <v-row class="mb-5">
             <v-col>
@@ -10,71 +10,81 @@
             </v-col>
         </v-row>
 
-        <!-- filteri -->
-        <div class="d-flex filters-section">
-            <span class="filter-item">
-                 <v-select
-                 v-model="filters.selectedStatus"
-                :items="filters.statuses"
-                filled
-                label="Status računa"
-                ></v-select> 
-            </span>
+        <!-- AKO IMA RAČUNA -->      
+        <div v-if="bills.length > 0">
+            <!-- filteri -->
+            <div class="d-flex filters-section">
+                <span class="filter-item">
+                    <v-select
+                    v-model="filters.selectedStatus"
+                    :items="filters.statuses"
+                    filled
+                    label="Status računa"
+                    ></v-select> 
+                </span>
+            </div>
+            
+            <!-- kartice s računima -->
+            <v-card 
+                v-for="bill in filteredBills"
+                :key="bill.id"
+                class="my-8"
+            >
+                <v-row dense>
+                    <v-col cols="12" md="6">
+                        <v-card-title> Račun za {{ bill.mjesec }}  </v-card-title>         
+                        <v-card-text>
+                            Datum dospijeća: {{ bill.datum_dospijeca }}
+                            <br>
+                            Datum plaćanja: {{ bill.datum_placanja }}
+                        </v-card-text>
+                    </v-col>
+
+
+                    <v-col class="d-flex  align-end">     
+                        <v-card-text>
+                            Ukupno za platiti:
+                            <br>
+                            {{ bill.ukupno }} KM
+                        </v-card-text>
+                    </v-col>
+
+                    <v-col>
+                        <v-card-text>
+                            Račun br.: {{ bill.id }}
+                            <br>
+                            <v-btn class="mt-3 teal lighten-4" :disabled="bill.placeno == true"> Idi na plaćanje </v-btn>
+                        </v-card-text>
+                    </v-col>
+
+                    <v-col class="d-flex justify-end">
+                        <v-card-actions>
+                        <v-chip
+                            :class="{
+                                        'rotate90': $vuetify.breakpoint.lgAndUp,
+                                        'green': bill.placeno == true,
+                                        'yellow lighten-3': bill.placeno == false,
+                                    }"
+                            class="status-chip mx-3"
+                        >
+                            {{ bill.placeno ? 'Plaćeno' : 'Neplaćeno' }} 
+                        </v-chip> 
+                        </v-card-actions>
+                    </v-col>
+                </v-row>
+            </v-card>
         </div>
-        
-        <!-- kartice s računima -->
-        <v-card 
-            v-for="bill in filteredBills"
-            :key="bill.id"
-            max-width="50vw"
-            class="my-8"
+
+        <!-- AKO NEMA RAČUNA ZA TAJ PRIKLJUČAK-->      
+
+        <v-alert
+            v-else
+            outlined
+            type="info"
+            icon="mdi-package-variant"
         >
-            <v-row>
-                <v-col>
-                    <v-card-title> Račun za {{ bill.mjesec }}  </v-card-title>         
-                    <v-card-text>
-                        Datum dospijeća: {{ bill.datum_dospijeca }}
-                        <br>
-                        Datum plaćanja: {{ bill.datum_placanja }}
-                    </v-card-text>
-                </v-col>
-
-
-                <v-col class="d-flex  align-end">     
-                    <v-card-text>
-                        Ukupno za platiti:
-                        <br>
-                        {{ bill.ukupno }} KM
-                    </v-card-text>
-                </v-col>
-
-                <v-col>
-                    <v-card-text>
-                        Račun br.: {{ bill.id }}
-                        <br>
-                        <v-btn class="mt-3 teal lighten-4" :disabled="bill.placeno == true"> Idi na plaćanje </v-btn>
-                    </v-card-text>
-                </v-col>
-
-                <v-col class="d-flex justify-center">
-                    <v-card-actions>
-                    <v-chip
-                        :class="{
-                                    'rotate90': $vuetify.breakpoint.lgAndUp,
-                                    'green': bill.placeno == true,
-                                    'yellow lighten-3': bill.placeno == false,
-                                }"
-                        class="status-chip mx-3"
-                    >
-                        {{ bill.placeno ? 'Plaćeno' : 'Neplaćeno' }} 
-                    </v-chip> 
-                    </v-card-actions>
-                </v-col>
-            </v-row>
-        </v-card>
-
-
-     
+            Čini se da još nemate računa za odabrani priključak.
+        </v-alert>
       
     </v-container>
 </template>

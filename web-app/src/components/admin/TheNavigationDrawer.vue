@@ -35,33 +35,11 @@
 
                     <v-list-item-title>Izvještaj</v-list-item-title>
                 </v-list-item>
-                <v-list-group
-                    v-for="item in navigationItemsMulti"
-                    :key="item.title"
-                    v-model="item.active"
-                    :prepend-icon="item.icon"
-                    no-action
-                >
-                    <template v-slot:activator>
-                    <v-list-item-content>
-                        <v-list-item-title v-text="item.title"></v-list-item-title>
-                    </v-list-item-content>
-                    </template>
-
-                    <v-list-item
-                    v-for="child in item.items"
-                    :key="child.title"
-                    :to="child.to"
-                    >
-                    <v-list-item-content>
-                        <v-list-item-title v-text="child.title"></v-list-item-title>
-                    </v-list-item-content>
-                    </v-list-item>
-                </v-list-group>
 
                  <v-list-item
-                 v-for="item in navigationItemsSingle"
+                 v-for="item in navigationItems"
                  :key="item.title"
+                 :to="item.to"
                  >
                     <v-list-item-icon>
                     <v-icon v-text="item.icon"></v-icon>
@@ -92,22 +70,17 @@
 export default {
     name: 'NavigationDrawer',
     data: () => ({
-        navigationItemsMulti: [
-        {
-          icon: 'mdi-package-variant-closed',
-          items: [
-            { title: 'Pregled korisnika', to: '/admin/svi-korisnici'},
-            { title: 'Dodaj novog', to: '/admin/korisnici-dodaj-novog' },
-          ],
-          title: 'Korisnici',
-        },
+      navigationItems: [
         {
           icon: 'mdi-account-supervisor',
-          items: [{ title: 'Pregled' }, {title: 'Dodaj novog djelatnika'}],
+          title: 'Kupci',
+          to: '/admin/kupci'
+        },
+        {
+          icon: 'mdi-account-tie',
           title: 'Osoblje',
-        }
-      ],
-      navigationItemsSingle: [
+          to: '/admin/osoblje'
+        },
         {
           icon: 'mdi-water-pump',
           title: 'Priključci',
@@ -115,6 +88,7 @@ export default {
         {
           icon: 'mdi-label',
           title: 'Kategorije potrošnje',
+          to: '/admin/kategorije-potrosnje'
         },
                 {
           icon: 'mdi-message-alert',

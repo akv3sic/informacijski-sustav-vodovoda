@@ -69,10 +69,24 @@ const routes = [
   /************************************/
   {
     path: '/admin',
-    component: () => import("@/views/admin/AdminHome"),
+    component: () => import("@/views/admin/Home"),
     meta: {  },
     children: [
-
+      {
+        path: 'kupci',
+        name: 'admin-customers',
+        component: () => import("@/views/admin/Customers"),
+      },
+      {
+        path: 'osoblje',
+        name: 'admin-staff',
+        component: () => import("@/views/admin/Staff"),
+      },
+      {
+        path: 'kategorije-potrosnje',
+        name: 'admin-consuption-categories',
+        component: () => import("@/views/admin/ConsuptionCategories"),
+      },        
     ]
   },
   /************************************/

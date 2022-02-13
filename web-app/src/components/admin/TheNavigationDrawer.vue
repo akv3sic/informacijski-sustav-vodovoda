@@ -93,6 +93,7 @@ export default {
                 {
           icon: 'mdi-message-alert',
           title: 'Kvarovi',
+          to: '/admin/kvarovi'
         },
         {
           icon: 'mdi-cog',

@@ -86,7 +86,12 @@ const routes = [
         path: 'kategorije-potrosnje',
         name: 'admin-consuption-categories',
         component: () => import("@/views/admin/ConsuptionCategories"),
-      },        
+      },
+      {
+        path: 'kvarovi',
+        name: 'admin-malfunction-reports',
+        component: () => import("@/views/admin/MalfunctionReports"),
+      },          
     ]
   },
   /************************************/

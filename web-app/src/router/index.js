@@ -120,6 +120,11 @@ const routes = [
         name: 'account-details-staff',
         component: () => import("@/views/userDashboard/AccountDetails"),
       },
+      {
+        path: 'prijava-kvara',
+        name: 'malfunction-report-staff',
+        component: () => import("@/views/userDashboard/MalfunctionReport"),
+      },
     ]
   },
   /************************************/

@@ -47,7 +47,7 @@
 
           </template>
 
-          <v-card>
+          <v-card min-width="200px" class="mr-5">
             <v-list>
               <v-list-item>
                 <v-list-item-avatar>

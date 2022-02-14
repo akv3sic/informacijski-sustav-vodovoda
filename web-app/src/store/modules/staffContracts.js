@@ -4,6 +4,7 @@ import httpClient from '@/common/httpClient'
 const state = () => ({
     isLoading: true,
     contracts: [],
+    showSuccessAlert: false,
  })
  
  // getters
@@ -13,6 +14,9 @@ const state = () => ({
     },
     isLoading(state) {
         return state.isLoading;
+    },
+    showSuccessAlert(state) {
+        return state.showSuccessAlert;
     },
  }
  
@@ -37,6 +41,32 @@ const state = () => ({
                 console.log(err)
              })
     },
+    // upis novog stanja brojila
+    postNewEntry({commit}, {idPrikljucka, stanjeBrojila}) {
+        return new Promise((resolve, reject) => {
+            commit('REQUEST')
+            const payload = {
+                idPrikljucka: idPrikljucka,
+                stanjeBrojila: parseInt(stanjeBrojila)
+            }
+            httpClient.post("/upisbrojila/", payload)
+            .then(response => {
+                console.log(response.data)
+                // check response status
+                if(response.status === 201 || response.status == 202) { // success
+                    console.log(JSON.stringify(response.data))
+                    // call mutation
+                    commit('REQUEST_SUCCESS')
+                    commit('NEW_ENTRY_SUCCESS')
+                    resolve(response)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
 
  }
  
@@ -51,6 +81,10 @@ const state = () => ({
     },
     REQUEST_SUCCESS (state){
         state.isLoading = false
+    },
+    NEW_ENTRY_SUCCESS (state){
+        state.showSuccessAlert = true
+        setTimeout(() => { state.showSuccessAlert = false }, 5000)
     },
  }
  

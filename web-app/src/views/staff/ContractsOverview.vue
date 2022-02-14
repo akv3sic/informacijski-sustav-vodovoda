@@ -63,12 +63,88 @@
 
                 <v-col>
                     <v-card-text>
-                        Stanje brojila: {{ prikljucak.stanjeBrojila }}
+                        Stanje brojila: {{ prikljucak.stanje_brojila }}
                         <br>
-                        <v-btn class="mt-3 teal lighten-4" :disabled="prikljucak.popisan == true"> Upiši stanje </v-btn>
+
+                        <v-btn 
+                        class="mt-3 teal lighten-4"
+                        :disabled="prikljucak.popisan == true"
+                        @click="openDialog(prikljucak)"
+                        >
+                        Upiši stanje 
+                        </v-btn>
+                        
                     </v-card-text>
                 </v-col>
             </v-row>
+
+            <!--
+                UPIS NOVOG STANJA BROJILA
+            -->
+
+            <v-dialog
+            v-model="dialog"
+            max-width="600px"
+            :retain-focus="false"
+            v-if="clickedContract"
+            >
+
+            <v-card>
+                <v-card-title>
+                <span class="text-h5">Upis novog stanja brojila</span>
+                </v-card-title>
+                <v-card-text>
+                <v-container>
+                    <v-row>
+                    <v-col
+                        cols="12"
+                        sm="6"
+                        md="7"
+                    >
+                        <p>Vlasnik: {{ clickedContract.username }} {{ clickedContract.userlastname }}</p>
+                        <p>Adresa: {{ clickedContract.ulica }} {{ clickedContract.kucni_broj}}</p>
+                    </v-col>
+                    <v-col
+                        cols="12"
+                        sm="6"
+                        md="4"
+                    >
+                        <v-text-field
+                        label="Stanje brojila"
+                        required
+                        v-model="clickedContract.stanje_brojila"
+                        ></v-text-field>
+                    </v-col>
+                    </v-row>
+                </v-container>
+
+                <v-alert type="success" v-if="showSuccessAlert">Stanje uspješno spremljeno.</v-alert>
+
+                </v-card-text>
+                <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                    color="accent"
+                    text
+                    @click="dialog = false"
+                >
+                    Natrag
+                </v-btn>
+                <v-btn
+                    color="primary"
+                    text
+                    @click="saveNewWaterMeterEntry(clickedContract.idPrikljucka, clickedContract.stanje_brojila)"
+                >
+                    Spremi
+                </v-btn>
+                </v-card-actions>
+            </v-card>
+            </v-dialog>
+
+            <!--
+                UPIS NOVOG STANJA BROJILA KRAJ
+            -->
+
         </v-card>
         <!-- stranicenje -->
         <v-pagination
@@ -92,10 +168,14 @@ export default {
             { id: 738, ime: "Jure", prezime: "Jurić", mjesto: "Mjesto", adresa: "Street 22",  status: "Popisano", stanjeBrojila: "523" },
         ],*/
 
+        // filters
         samoNepopisani: false, 
-
         selectedPlace: null,
-        selectedStreet: null
+        selectedStreet: null,
+
+        // dialog za upis novog stanja
+        dialog: false,
+        clickedContract: null
     }),
     mounted() {
         this.fetchPlaces()
@@ -115,6 +195,31 @@ export default {
         fetchStreets(place) {
             this.$store
                 .dispatch('staffPlacesAndStreets/fetchStreets', place, {root: true})
+        },
+
+        // otvara dijalog za upis novog stanja
+        openDialog(prikljucak) {
+            console.log("kliknuti prikljucak :" + JSON.stringify(prikljucak))
+            this.clickedContract = prikljucak
+            this.dialog = true
+        },
+        refreshContracts() {
+            if(this.selectedStreet) {
+                this.fetchContracts(null, this.selectedStreet)
+            }
+            else if(this.selectedPlace) {
+                this.fetchContracts(this.selectedPlace, null)
+            }
+            else {
+                this.fetchContracts()
+            }
+        },
+        saveNewWaterMeterEntry(idPrikljucka, stanjeBrojila) {
+            this.$store
+                .dispatch('staffContracts/postNewEntry', { idPrikljucka, stanjeBrojila }, {root: true})
+            setTimeout(function() {
+                this.refreshContracts();
+            }.bind(this), 2000);
         }
     },
     computed: {
@@ -130,7 +235,7 @@ export default {
             });
         },
         ...mapGetters('staffPlacesAndStreets', ['isLoading', 'places', 'streets']),
-        ...mapGetters('staffContracts', ['isLoading', 'contracts'])
+        ...mapGetters('staffContracts', ['isLoading', 'contracts', 'showSuccessAlert'])
     },
     watch: {
         selectedPlace(newValue) {

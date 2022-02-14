@@ -11,20 +11,25 @@
         <div class="d-flex filters-section">
             <span class="filter-item">
                  <v-select
-                 v-model="filters.selectedPlace"
-                :items="filters.statuses"
+                 v-model="selectedPlace"
+                :items="places"
+                item-text="mjesto"
                 filled
                 label="Filtriraj po mjestu"
                 ></v-select> 
             </span>
-            <span class="filter-item" v-if="filters.selectedPlace != ''">
+
+            <!-- Prikazuje se samo ako ima odabranih priključaka -->
+            <span class="filter-item" v-if="selectedPlace">
                 <v-select
-                v-model="filters.selectedStreet"
-                :items="filters.statuses"
+                v-model="selectedStreet"
+                :items="streets"
+                item-text="ulica"
                 filled
                 label="Filtriraj po ulici"
                 ></v-select> 
             </span>
+
             <span class="filter-item">
                 <v-switch
                 v-model="filters.withRequestsOnly"
@@ -75,6 +80,8 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex"
+
 export default {
     name: "StaffContractsOverview",
     data: () => ({
@@ -85,22 +92,41 @@ export default {
             { id: 738, ime: "Jure", prezime: "Jurić", mjesto: "Mjesto", adresa: "Street 22",  status: "Popisano", stanjeBrojila: "523" },
         ],
         filters: {
-            selectedPlace: "dd",
-            selectedStreet: "",
-            statuses: ['Sve', 'Pristiglo', 'Plaćeno', 'Zakašnjelo'],
             withRequestsOnly: false    
-        }
+        },
+        selectedPlace: null,
+        selectedStreet: null
     }),
+    mounted() {
+        this.fetchPlaces()
+    },
     methods: {
-      
-    } ,
+        fetchPlaces() {
+            this.$store
+                .dispatch('staffPlacesAndStreets/fetchPlaces', null, {root: true})
+        },
+        fetchStreets(place) {
+            this.$store
+                .dispatch('staffPlacesAndStreets/fetchStreets', place, {root: true})
+        }
+    },
     computed: {
-        // by status
+        //
         filteredprikljucci: function() {
             return this.prikljucci.filter((prikljucak) => {
                 return prikljucak.status.match(this.filters.selectedStatus) || this.filters.selectedStatus == "Sve"
             });
         },
+        ...mapGetters('staffPlacesAndStreets', ['isLoading', 'places', 'streets'])
+    },
+    watch: {
+        selectedPlace(newValue) {
+            console.log("mjesto promijenjeno: " + newValue)
+            this.fetchStreets(newValue)
+        },
+        selectedStreet(newValue) {
+            console.log("ulica promijenjena: " + newValue)
+        }
     }
 }
 </script>

@@ -59,7 +59,7 @@ export default {
              case 'logOut':
                 this.$store
                     .dispatch('auth/logOut', { root: true })
-                 this.$router.push({path: '/trgovina'})
+                 this.$router.push({path: '/'})
                 break;
                 }
              },

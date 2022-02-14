@@ -1,4 +1,5 @@
 import httpClient from '@/common/httpClient'
+import Swal from 'sweetalert2'
 
 // initial state
 const state = () => ({
@@ -35,6 +36,27 @@ const state = () => ({
                 console.log(err)
              })
     },
+    addNewStaff({commit}, user) {
+        return new Promise((resolve, reject) => {
+            commit('REQUEST')
+            httpClient.post("/registracija/", user)
+            .then(response => {
+                console.log(response.data)
+                // check response status
+                if(response.status === 201) { // resource created 
+                    console.log(JSON.stringify(response.data))
+                    // call mutation
+                    commit('REQUEST_SUCCESS')
+                    commit('ADD_STAFF_SUCCESS')
+                    resolve(response)
+                }
+            })
+            .catch(err => {
+                console.log(err)
+                reject(err)
+            })
+        })
+    },
  }
  
  // mutations
@@ -45,6 +67,21 @@ const state = () => ({
     },
     REQUEST (state){
         state.isLoading = true
+    },
+    REQUEST_SUCCESS (state){
+        state.isLoading = false
+    },
+    ADD_STAFF_SUCCESS() {
+        /* success alert */
+        Swal.fire({
+            width: 400,
+            position: 'top-end',
+            icon: 'success',
+            title: 'Djelatnik uspješno dodan.',
+            showConfirmButton: false,
+            timer: 1600
+        })
+        /*********************************/
     },
  }
  

@@ -5,7 +5,7 @@ const state = () => ({
     drawer: null,
     isLoading: true,
     contracts: [],
-    selectedContract: 1
+    selectedContract: null
  })
  
  // getters
@@ -39,7 +39,12 @@ const state = () => ({
             .then((response) => {
                 console.log('response: ' + JSON.stringify(response.data))
                 commit('SET_CONTRACTS', response.data)
-                commit('SET_SELECTED_CONTRACT', response.data[0].id)
+
+                // samo ako ima priključaka => postavi prvi kao odabran
+                if(response.data.length) {
+                    commit('SET_SELECTED_CONTRACT', response.data[0].id)   
+                }
+                
             })
             .catch(err => {
                 console.log(err)

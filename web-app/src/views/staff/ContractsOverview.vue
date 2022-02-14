@@ -32,7 +32,7 @@
 
             <span class="filter-item">
                 <v-switch
-                v-model="filters.withRequestsOnly"
+                v-model="samoNepopisani"
                 label="Samo nepopisani"
                 ></v-switch>
             </span>
@@ -40,15 +40,15 @@
         
         <!-- kartice s računima -->
         <v-card 
-            v-for="prikljucak in filteredprikljucci"
-            :key="prikljucak.id"
+            v-for="prikljucak in filteredPrikljucci"
+            :key="prikljucak.idPrikljucka"
             class="my-8"
         >
             <v-row>
                 <v-col>
-                    <v-card-title> Priključak ID: {{ prikljucak.id }} </v-card-title>         
+                    <v-card-title> Priključak ID: {{ prikljucak.idPrikljucka }} </v-card-title>         
                     <v-card-text>
-                        Vlasnik: {{ prikljucak.ime }} {{ prikljucak.prezime }}
+                        Vlasnik: {{ prikljucak.username }} {{ prikljucak.userlastname }}
                     </v-card-text>
                 </v-col>
 
@@ -57,7 +57,7 @@
                     <v-card-text>
                         Mjesto: {{ prikljucak.mjesto }}
                         <br>
-                        Adresa: {{ prikljucak.adresa }}
+                        Adresa: {{ prikljucak.ulica }} {{ prikljucak.kucni_broj }}
                     </v-card-text>
                 </v-col>
 
@@ -65,7 +65,7 @@
                     <v-card-text>
                         Stanje brojila: {{ prikljucak.stanjeBrojila }}
                         <br>
-                        <v-btn class="mt-3 teal lighten-4" :disabled="prikljucak.status == 'Popisano'"> Upiši stanje </v-btn>
+                        <v-btn class="mt-3 teal lighten-4" :disabled="prikljucak.popisan == true"> Upiši stanje </v-btn>
                     </v-card-text>
                 </v-col>
             </v-row>
@@ -85,25 +85,32 @@ import { mapGetters } from "vuex"
 export default {
     name: "StaffContractsOverview",
     data: () => ({
-        prikljucci: [
+        /*prikljucci: [
             { id: 732, ime: "Jure", prezime: "Jurić", mjesto: "Mjesto", adresa: "Street 22",  status: "Nepopisano", stanjeBrojila: "523" },
             { id: 733, ime: "Jure", prezime: "Jurić", mjesto: "Mjesto", adresa: "Street 22",  status: "Nepopisano", stanjeBrojila: "523" },
             { id: 734, ime: "Jure", prezime: "Jurić", mjesto: "Mjesto", adresa: "Street 22",  status: "Popisano", stanjeBrojila: "523" },
             { id: 738, ime: "Jure", prezime: "Jurić", mjesto: "Mjesto", adresa: "Street 22",  status: "Popisano", stanjeBrojila: "523" },
-        ],
-        filters: {
-            withRequestsOnly: false    
-        },
+        ],*/
+
+        samoNepopisani: false, 
+
         selectedPlace: null,
         selectedStreet: null
     }),
     mounted() {
         this.fetchPlaces()
+        this.fetchContracts()
     },
     methods: {
         fetchPlaces() {
             this.$store
                 .dispatch('staffPlacesAndStreets/fetchPlaces', null, {root: true})
+        },
+        
+        // fetch contracts and filter by place and street (optionally)
+        fetchContracts(place, street) {
+            this.$store
+                .dispatch('staffContracts/fetchContracts', { place: place, street: street }, {root: true})
         },
         fetchStreets(place) {
             this.$store
@@ -111,21 +118,29 @@ export default {
         }
     },
     computed: {
-        //
-        filteredprikljucci: function() {
-            return this.prikljucci.filter((prikljucak) => {
-                return prikljucak.status.match(this.filters.selectedStatus) || this.filters.selectedStatus == "Sve"
+        // filtrira samo nepopisane priključke (na klijentskoj strani!)
+        filteredPrikljucci: function() {
+            return this.contracts.filter((contract) => {
+                if(this.samoNepopisani) {
+                    return contract.popisan == false
+                }
+                else {
+                    return contract
+                }
             });
         },
-        ...mapGetters('staffPlacesAndStreets', ['isLoading', 'places', 'streets'])
+        ...mapGetters('staffPlacesAndStreets', ['isLoading', 'places', 'streets']),
+        ...mapGetters('staffContracts', ['isLoading', 'contracts'])
     },
     watch: {
         selectedPlace(newValue) {
             console.log("mjesto promijenjeno: " + newValue)
             this.fetchStreets(newValue)
+            this.fetchContracts(newValue, null)
         },
         selectedStreet(newValue) {
             console.log("ulica promijenjena: " + newValue)
+            this.fetchContracts(null, newValue)
         }
     }
 }

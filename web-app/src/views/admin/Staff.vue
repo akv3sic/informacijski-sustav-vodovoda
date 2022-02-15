@@ -5,7 +5,7 @@
                 <span class="text-h5">Osoblje</span>
                 <span class="text-h5 grey--text"> ({{ users.length }})</span>
                 <div class="ml-2 d-inline">
-                    <v-btn text small class="primary--text" to="proizvodi-dodaj-novi">Dodaj novog</v-btn>   
+                    <v-btn text small class="primary--text" to="osoblje-dodaj-novog">Dodaj novog</v-btn>   
                 </div>
             </v-col>
         </v-row>
@@ -109,10 +109,10 @@ export default {
             this.$store
                 .dispatch('adminUsers/fetchUsers', 2, {root: true})
         },
-        deleteuser(userId, userName, userImageUrl) {
+        deleteUser(userId, userName, userImageUrl) {
             /* confirmation dialog */
             Swal.fire({
-                title: 'Sigurno želite izbrisati ovaj proizvod?',
+                title: 'Sigurno želite ovog korisnika?',
                 text: userName,
                 imageUrl: userImageUrl,
                 imageHeight: 135,

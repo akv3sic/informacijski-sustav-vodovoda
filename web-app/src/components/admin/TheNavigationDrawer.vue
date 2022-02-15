@@ -84,6 +84,12 @@ export default {
         {
           icon: 'mdi-water-pump',
           title: 'Priključci',
+          to: '/admin/prikljucci'
+        },
+        {
+          icon: 'mdi-receipt',
+          title: 'Računi',
+          to: '/admin/racuni'
         },
         {
           icon: 'mdi-label',
@@ -93,6 +99,7 @@ export default {
                 {
           icon: 'mdi-message-alert',
           title: 'Kvarovi',
+          to: '/admin/kvarovi'
         },
         {
           icon: 'mdi-cog',

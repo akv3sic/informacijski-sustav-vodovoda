@@ -83,10 +83,42 @@ const routes = [
         component: () => import("@/views/admin/Staff"),
       },
       {
+        path: 'prikljucci',
+        name: 'admin-list-contracts',
+        component: () => import("@/views/admin/ContractsOverview"),
+      },
+      {
+        path: 'racuni',
+        name: 'admin-bills',
+        component: () => import("@/views/admin/Bills"),
+      },
+      {
+        path: 'zahtjevi-za-novi-prikljucak',
+        name: 'admin-requests',
+        component: () => import("@/views/admin/RequestsOverview"),
+      },
+      // detalji zahtjeva
+      {
+        path: 'zahtjev-za-novi-prikljucak/:id/',
+        name: "request-details",
+        component: () => import("@/views/admin/RequestDetails"),
+        props: true
+      },
+      {
+        path: 'osoblje-dodaj-novog',
+        name: 'admin-add-new-staff',
+        component: () => import("@/views/admin/StaffAddNew"),
+      },
+      {
         path: 'kategorije-potrosnje',
         name: 'admin-consuption-categories',
         component: () => import("@/views/admin/ConsuptionCategories"),
-      },        
+      },
+      {
+        path: 'kvarovi',
+        name: 'admin-malfunction-reports',
+        component: () => import("@/views/admin/MalfunctionReports"),
+      },          
     ]
   },
   /************************************/
@@ -109,6 +141,11 @@ const routes = [
         path: 'osobni-podatci',
         name: 'account-details-staff',
         component: () => import("@/views/userDashboard/AccountDetails"),
+      },
+      {
+        path: 'prijava-kvara',
+        name: 'malfunction-report-staff',
+        component: () => import("@/views/userDashboard/MalfunctionReport"),
       },
     ]
   },

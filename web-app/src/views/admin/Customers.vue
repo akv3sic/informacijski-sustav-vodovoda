@@ -5,7 +5,7 @@
                 <span class="text-h5">Kupci</span>
                 <span class="text-h5 grey--text"> ({{ users.length }})</span>
                 <div class="ml-2 d-inline">
-                    <v-btn text small class="primary--text" to="proizvodi-dodaj-novi">Dodaj novog</v-btn>   
+                    <!-- <v-btn text small class="primary--text">Dodaj novog</v-btn> -->
                 </div>
             </v-col>
         </v-row>

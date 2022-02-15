@@ -24,6 +24,7 @@
               :items="contracts"
               :item-text="item => item.ulica + ' ' + item.kucni_broj"
               label="Odabir priključka"
+              no-data-text="Nema priključaka"
               item-value="id"
               outlined
               class="px-4 pt-4"

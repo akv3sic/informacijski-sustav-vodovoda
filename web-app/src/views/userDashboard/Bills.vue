@@ -75,15 +75,24 @@
             </v-card>
         </div>
 
-        <!-- AKO NEMA RAČUNA ZA TAJ PRIKLJUČAK-->      
+        <!-- AKO NEMA RAČUNA ZA TAJ PRIKLJUČAK-->  
+        <v-alert
+            v-else-if="contracts.length"
+            outlined
+            type="info"
+            icon="mdi-package-variant"
+        >
+            Čini se da još nemate računa za odabrani priključak.
+        </v-alert>
 
+        <!-- AKO NEMA PRIKLJUČAKA -->  
         <v-alert
             v-else
             outlined
             type="info"
             icon="mdi-package-variant"
         >
-            Čini se da još nemate računa za odabrani priključak.
+            Izgleda da nemate aktivnih priključaka.
         </v-alert>
       
     </v-container>
@@ -107,7 +116,10 @@ export default {
         }
     }),
     mounted() {
-        this.fetchBills()
+        if(this.contracts.length) {
+          this.fetchBills()
+        }
+            
     },
     methods: {
       fetchBills() {
@@ -132,7 +144,7 @@ export default {
                 return this.bills
             } 
         },
-        ...mapGetters('userDashboard', ['selectedContract']),
+        ...mapGetters('userDashboard', ['selectedContract', 'contracts']),
         ...mapGetters('userBills', ['bills']),
     },
     watch: {

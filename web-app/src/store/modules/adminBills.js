@@ -4,50 +4,48 @@ import Swal from 'sweetalert2'
 // initial state
 const state = () => ({
     isLoading: true,
-    users: [],
+    noOfBillsToBeActivated: [],
+    showSuccessAlert: false,
  })
  
  // getters
  const getters = {
-    users(state) {
-        return state.users;
+    noOfBillsToBeActivated(state) {
+        return state.noOfBillsToBeActivated;
     },
     isLoading(state) {
         return state.isLoading;
+    },
+    showSuccessAlert(state) {
+        return state.showSuccessAlert;
     },
  }
  
  // actions
  const actions = {
-    fetchUsers( {commit}, rolaID) {
+    fetchNoOfBillsToBeActivated( {commit}) {
         commit('REQUEST')
-        const url = '/lista/'
-        //console.log("poslana rola: " + rolaID)
-        httpClient.get(url, {
-            params: {
-              rola: rolaID
-            }
-          })
+        const url = '/brojracuna/'
+        httpClient.get(url)
             .then((response) => {
-                //console.log('response: ' + JSON.stringify(response.data))
-                commit('SET_USERS', response.data)
+                console.log(JSON.stringify(response.data))
+                commit('SET_NO_OF_BILLS_TO_BE_ACTIVATED', response.data.broj_racuna)
             })
             .catch(err => {
                 console.log(err)
              })
     },
-    addNewStaff({commit}, user) {
+    activateAllBills({commit}) {
         return new Promise((resolve, reject) => {
             commit('REQUEST')
-            httpClient.post("/registracija/", user)
+            httpClient.put("/upisbrojila/")
             .then(response => {
                 console.log(response.data)
                 // check response status
-                if(response.status === 201) { // resource created 
+                if(response.status === 202) { //accepted
                     console.log(JSON.stringify(response.data))
                     // call mutation
-                    commit('REQUEST_SUCCESS')
-                    commit('ADD_STAFF_SUCCESS')
+                    commit('ACTIVATE_SUCCESS')
                     resolve(response)
                 }
             })
@@ -61,27 +59,24 @@ const state = () => ({
  
  // mutations
  const mutations = {
-    SET_USERS (state, payload) {
-        state.users = payload
+    SET_NO_OF_BILLS_TO_BE_ACTIVATED (state, payload) {
+        state.noOfBillsToBeActivated = payload
         state.isLoading = false
     },
     REQUEST (state){
         state.isLoading = true
     },
-    REQUEST_SUCCESS (state){
+    ACTIVATE_SUCCESS (state){
         state.isLoading = false
-    },
-    ADD_STAFF_SUCCESS() {
-        /* success alert */
+        /* succes alert */
         Swal.fire({
             width: 400,
             position: 'top-end',
+            text: 'Računi uspješno aktivirani. Sad su vidljivi korisnicima.',
             icon: 'success',
-            title: 'Djelatnik uspješno dodan.',
             showConfirmButton: false,
-            timer: 1600
-        })
-        /*********************************/
+            timer: 2600
+          })
     },
  }
  

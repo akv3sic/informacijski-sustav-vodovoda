@@ -7,7 +7,7 @@
             flat
         >
             <v-spacer></v-spacer>
-            <v-toolbar-title>Popisivanje potrošnje</v-toolbar-title>
+            <v-toolbar-title>Vodovod X - Popisivanje</v-toolbar-title>
             <v-spacer></v-spacer>
             <v-btn icon class="hidden-sm-and-down">
                 <v-icon>mdi-bell-outline</v-icon>
@@ -89,9 +89,9 @@ export default {
     name: 'Navbar',
     data: () => ({
        accountMenuItems: [
-            { title: 'Moj račun', action: '', to: 'osobni-podatci'},  
+            { title: 'Moji podatci', action: '', to: 'osobni-podatci'},  
             { title: 'Prijava kvara', action: '', to: 'prijava-kvara'},  
-            { title: 'Odjava', action: 'logOut', to: '#'},  
+            { title: 'Odjava', action: 'logOut', to: ''},  
         ],
         drawer: false,
         navigationItems: [

@@ -184,7 +184,7 @@ export default {
     methods: {
         fetchPlaces() {
             this.$store
-                .dispatch('staffPlacesAndStreets/fetchPlaces', null, {root: true})
+                .dispatch('placesAndStreets/fetchPlaces', null, {root: true})
         },
         
         // fetch contracts and filter by place and street (optionally)
@@ -194,7 +194,7 @@ export default {
         },
         fetchStreets(place) {
             this.$store
-                .dispatch('staffPlacesAndStreets/fetchStreets', place, {root: true})
+                .dispatch('placesAndStreets/fetchStreets', place, {root: true})
         },
 
         // otvara dijalog za upis novog stanja
@@ -234,7 +234,7 @@ export default {
                 }
             });
         },
-        ...mapGetters('staffPlacesAndStreets', ['isLoading', 'places', 'streets']),
+        ...mapGetters('placesAndStreets', ['isLoading', 'places', 'streets']),
         ...mapGetters('staffContracts', ['isLoading', 'contracts', 'showSuccessAlert'])
     },
     watch: {

@@ -13,3 +13,23 @@ class Prikljucak(models.Model):
     date_created=models.DateField(auto_now_add=True)
     status=models.ForeignKey(StatusPrikljucka, on_delete=CASCADE)
     
+    @property
+    def get_ulica(self):
+        return self.ulica.ulica
+
+    @property
+    def get_mjesto(self):
+        return self.ulica.mjesto.mjesto
+    
+    @property
+    def username(self):
+        return self.korisnik.username
+    
+    @property
+    def userlastname(self):
+        return self.korisnik.userlastname
+    
+    
+      
+
+    

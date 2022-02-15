@@ -39,6 +39,7 @@
 
                         <v-btn 
                             class="ma-3 primary"
+                            :to="'zahtjev-za-novi-prikljucak/' + request.id"
                         >
                             Vidi zahtjev
                         </v-btn>

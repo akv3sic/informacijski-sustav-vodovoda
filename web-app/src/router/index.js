@@ -97,6 +97,13 @@ const routes = [
         name: 'admin-requests',
         component: () => import("@/views/admin/RequestsOverview"),
       },
+      // detalji zahtjeva
+      {
+        path: 'zahtjev-za-novi-prikljucak/:id/',
+        name: "request-details",
+        component: () => import("@/views/admin/RequestDetails"),
+        props: true
+      },
       {
         path: 'osoblje-dodaj-novog',
         name: 'admin-add-new-staff',

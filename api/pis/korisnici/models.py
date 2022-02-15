@@ -10,6 +10,7 @@ class MyUserManager(BaseUserManager):
         if not username or not userlastname or not email or not password:
             raise ValueError("Unesite sve podatke")
         
+        
         user = self.model(
             email= self.normalize_email(email),
             username=username,
@@ -58,6 +59,13 @@ class User(AbstractBaseUser):
     REQUIRED_FIELDS=[ 'username', 'userlastname',]
 
     objects= MyUserManager()
+
+    @property
+    def get_ulica(self):
+        if self.ulica:
+            return self.ulica.ulica
+        else:
+            return None
 
     def __str__(self):
         return self.username

@@ -7,8 +7,6 @@ from tiket_statusi.models import StatusTiketa
 
 class Tiket(models.Model):
     naslov=models.CharField(max_length=50, null=False)
-    pitanje=models.TextField()
-    odgovor=models.TextField(default=None)
-    prikljucak=models.ForeignKey(Prikljucak, on_delete=CASCADE)
-    racunovodja=models.ForeignKey(User, on_delete=CASCADE)
+    opis_kvara=models.TextField()
+    korisnik=models.ForeignKey(User, on_delete=CASCADE)
     status=models.ForeignKey(StatusTiketa, on_delete=CASCADE)

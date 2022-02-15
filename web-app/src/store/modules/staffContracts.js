@@ -5,6 +5,7 @@ const state = () => ({
     isLoading: true,
     contracts: [],
     showSuccessAlert: false,
+    noOfNewRequests: 0
  })
  
  // getters
@@ -17,6 +18,9 @@ const state = () => ({
     },
     showSuccessAlert(state) {
         return state.showSuccessAlert;
+    },
+    noOfNewRequests(state) {
+        return state.noOfNewRequests;
     },
  }
  
@@ -36,6 +40,7 @@ const state = () => ({
             .then((response) => {
                 console.log('popis prikljucaka: ' + JSON.stringify(response.data))
                 commit('SET_CONTRACTS', response.data.prikljucci)
+                commit('SET_NO_OF_NEW_REQUESTS', response.data.broj_zahtjeva)
             })
             .catch(err => {
                 console.log(err)
@@ -75,6 +80,9 @@ const state = () => ({
     SET_CONTRACTS (state, payload) {
         state.contracts = payload
         state.isLoading = false
+    },
+    SET_NO_OF_NEW_REQUESTS (state, payload) {
+        state.noOfNewRequests = payload
     },
     REQUEST (state){
         state.isLoading = true

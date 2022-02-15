@@ -14,8 +14,8 @@
             
             <!--  grafički prikaz potrošnje -->
             <GraphicalConsuptionOverview 
-                :labels="graphLabels"
-                :values="graphValues"
+                :labels="graph.labels"
+                :values="graph.potrosnja"
             />
 
             <!-- kartice s potrošnjom za pojedini mjesec -->
@@ -83,23 +83,7 @@ export default {
     name: "UserConsuptionOverview",
     components: { GraphicalConsuptionOverview },
     data: () => ({
-        graphLabels: [
-        '2.',
-        '3.',
-        '4.',
-        '5.',
-        '6.',
-        '7.',
-        '8.',
-        '9.',
-        '10.',
-        '11.',
-        '12.',
-        '1.',
-      ],
-      graphValues: [
-        0, 0, 0, 0, 0, 0, 0, 0, 15, 20, 25, 17
-      ],
+
     }),
     mounted(){
         if(this.contracts.length) {
@@ -114,7 +98,7 @@ export default {
     },
     computed: {
         ...mapGetters('userDashboard', ['selectedContract', 'contracts']),
-        ...mapGetters('userConsuptionOverview', ['consuption', 'isLoading']),
+        ...mapGetters('userConsuptionOverview', ['consuption', 'isLoading', 'graph']),
     },
     watch: {
         selectedContract(newValue){

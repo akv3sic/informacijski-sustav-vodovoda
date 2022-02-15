@@ -13,6 +13,7 @@ import adminMalfunctionReports from './modules/adminMalfunctionReports'
 import placesAndStreets from './modules/placesAndStreets'
 import staffContracts from './modules/staffContracts'
 import userNewContractRequest from './modules/userNewContractRequest'
+import adminRequests from './modules/adminRequests'
 
 Vue.use(Vuex)
 
@@ -20,6 +21,6 @@ export default new Vuex.Store({
   modules: {
     admin, userDashboard, auth, userAccountDetails, userBills, userConsuptionOverview, adminConsuptionCategories,
     userMalfunctionReport, adminUsers, adminMalfunctionReports, placesAndStreets, staffContracts,
-    userNewContractRequest
+    userNewContractRequest, adminRequests
   }
 })

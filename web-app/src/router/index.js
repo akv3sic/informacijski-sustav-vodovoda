@@ -83,6 +83,16 @@ const routes = [
         component: () => import("@/views/admin/Staff"),
       },
       {
+        path: 'prikljucci',
+        name: 'admin-list-contracts',
+        component: () => import("@/views/admin/ContractsOverview"),
+      },
+      {
+        path: 'zahtjevi-za-novi-prikljucak',
+        name: 'admin-requests',
+        component: () => import("@/views/admin/RequestsOverview"),
+      },
+      {
         path: 'osoblje-dodaj-novog',
         name: 'admin-add-new-staff',
         component: () => import("@/views/admin/StaffAddNew"),

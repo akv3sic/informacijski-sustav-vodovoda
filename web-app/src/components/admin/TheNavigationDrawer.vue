@@ -84,6 +84,7 @@ export default {
         {
           icon: 'mdi-water-pump',
           title: 'Priključci',
+          to: '/admin/prikljucci'
         },
         {
           icon: 'mdi-label',

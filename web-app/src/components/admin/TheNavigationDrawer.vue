@@ -87,6 +87,11 @@ export default {
           to: '/admin/prikljucci'
         },
         {
+          icon: 'mdi-receipt',
+          title: 'Računi',
+          to: '/admin/racuni'
+        },
+        {
           icon: 'mdi-label',
           title: 'Kategorije potrošnje',
           to: '/admin/kategorije-potrosnje'

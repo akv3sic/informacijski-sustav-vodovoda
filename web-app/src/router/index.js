@@ -88,6 +88,11 @@ const routes = [
         component: () => import("@/views/admin/ContractsOverview"),
       },
       {
+        path: 'racuni',
+        name: 'admin-bills',
+        component: () => import("@/views/admin/Bills"),
+      },
+      {
         path: 'zahtjevi-za-novi-prikljucak',
         name: 'admin-requests',
         component: () => import("@/views/admin/RequestsOverview"),

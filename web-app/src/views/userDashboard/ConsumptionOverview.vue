@@ -25,24 +25,27 @@
                 class="my-8 px-4"
             >
                 <v-row>
-                    <v-col>
-                        <v-card-title class="font-italic"> {{ stavka.mjesec }} index {{index}}</v-card-title>         
+                    <v-col cols="12" md="4">
+                        <v-card-title class="font-italic"> {{ stavka.mjesec }} </v-card-title>         
                         <v-card-text>
                             Datum očitavanja: {{ stavka.datum_ocitavanja.replaceAll("-", ".") }}
                         </v-card-text>
                     </v-col>
-                    <v-col>
+                    <v-col cols="6" md="4">
                         <v-card-text> Prethodno stanje: {{ stavka.prethodno_stanje }} </v-card-text>         
                         <v-card-text> Novo stanje: {{ stavka.prethodno_stanje +  Math.round(stavka.potrosnja) }} </v-card-text>         
                     </v-col>
-                    <v-col class="d-flex justify-center">
+                    <v-col class="d-flex" cols="6" md="4">
                         <v-card-actions>
-                            <span class="pa-4 font-weight-medium">
+                            <v-icon color="blue">mdi-water</v-icon>
+                            <span class="pa-2 font-weight-medium">
                                 {{ Math.round(stavka.potrosnja) }}
                                 m<sup>3</sup>
                             </span>
+                            <!--
                             <v-icon large color="blue darken-3" v-if="stavka">mdi-arrow-up-bold</v-icon>
                             <v-icon large color="blue lighten-2" v-else>mdi-arrow-down-bold</v-icon>
+                            -->
                         </v-card-actions>
                         
                     </v-col>
